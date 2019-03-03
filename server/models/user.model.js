@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  update: Date,
+  updated: Date,
   hashed_password: {
     type: String,
     required: "Password is required"
