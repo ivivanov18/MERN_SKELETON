@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const Template = require("./template");
 
 const userRouter = require("./routes/user.routes");
+const authRouter = require("./routes/auth.routes");
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", userRouter);
+app.use("/", authRouter);
 
 module.exports = app;
