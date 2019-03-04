@@ -4,13 +4,19 @@ const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
+const CURRENT_WORKING_DIR = process.cwd();
 
 const Template = require("./template");
 
 const userRouter = require("./routes/user.routes");
 const authRouter = require("./routes/auth.routes");
 
+const compile = require("./devBundle");
+
 const app = express();
+
+app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 
 app.use(cookieParser());
 app.use(compress());
@@ -31,5 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/", userRouter);
 app.use("/", authRouter);
+
+compile(app);
 
 module.exports = app;
