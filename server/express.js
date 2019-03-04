@@ -7,6 +7,8 @@ const helmet = require("helmet");
 
 const Template = require("./template");
 
+const userRouter = require("./routes/user.routes");
+
 const app = express();
 
 app.use(cookieParser());
@@ -25,4 +27,7 @@ app.use((err, req, res, next) => {
 app.get("/", (req, res) => {
   res.status(200).send(Template());
 });
+
+app.use("/", userRouter);
+
 module.exports = app;

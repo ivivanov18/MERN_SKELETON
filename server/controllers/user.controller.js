@@ -1,7 +1,7 @@
-import _ from "lodash";
+const _ = require("lodash");
 
-import User from "../models/user.model";
-import errorHandler from "./error.controller";
+const User = require("../models/user.model");
+const getErrorMessage = require("../helpers/dbErrorHandler");
 
 module.exports = {
   create: (req, res, next) => {
@@ -9,7 +9,7 @@ module.exports = {
     user.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: errorHandler.getErrorMessage(err) // TODO: potential error due to export
+          error: getErrorMessage(err)
         });
       }
       res.status(200).json({
@@ -22,7 +22,7 @@ module.exports = {
     User.find((err, users) => {
       if (err) {
         return res.status(400).json({
-          error: errorHandler.getErrorMessage(err) // TODO: potential error due to export
+          error: getErrorMessage(err)
         });
       }
       res.json(users);

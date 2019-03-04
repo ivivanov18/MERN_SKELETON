@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 const crypto = require("crypto");
 
@@ -26,18 +27,11 @@ const UserSchema = new Schema({
   salt: String
 });
 
-UserSchema.virtual("password")
-  .set(password => {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hashed_password = this.encryptPassword(password);
-  })
-  .get(() => this._password);
-
 UserSchema.methods = {
-  authenticate: plainText =>
-    this.encryptPassword(plainText) === this.hashed_password,
-  encryptPassword: password => {
+  authenticate: function(plainText) {
+    return this.encryptPassword(plainText) === this.hashed_password;
+  },
+  encryptPassword: function(password) {
     if (!password) return "";
     try {
       return crypto
@@ -48,10 +42,25 @@ UserSchema.methods = {
       return "";
     }
   },
-  makeSalt: () => Math.round(new Date().valueOf() * Math.random()) + ""
+  makeSalt: function() {
+    return Math.round(new Date().valueOf() * Math.random()) + "";
+  }
 };
 
-UserSchema.path("hashed_password").validate(v => {
+UserSchema.virtual("password")
+  .set(function(password) {
+    console.log("Password:", password);
+    console.log("THIS: ", this);
+
+    this._password = password;
+    this.salt = this.makeSalt();
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(function() {
+    return this._password;
+  });
+
+UserSchema.path("hashed_password").validate(function(v) {
   if (this._password && this._password.length < 6) {
     this.invalidate("password", "Password must be at least 6 characters.");
   }
