@@ -1,5 +1,6 @@
 const Router = require("express").Router;
 const userController = require("../controllers/user.controller");
+const authController = require("../controllers/auth.controller");
 
 const router = Router();
 
@@ -10,9 +11,17 @@ router
 
 router
   .route("/api/users/:userId")
-  .get(userController.read)
-  .put(userController.update)
-  .delete(userController.remove);
+  .get(authController.requireSignin, userController.read)
+  .put(
+    authController.requireSignin,
+    authController.hasAuthorization,
+    userController.update
+  )
+  .delete(
+    authController.requireSignin,
+    authController.hasAuthorization,
+    userController.remove
+  );
 
 router.param("userId", userController.userByID);
 
