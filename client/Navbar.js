@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Link } from "react-router-dom";
 
 const styles = {
   root: {
@@ -30,7 +31,10 @@ function Navbar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             MERN SKELETON
           </Typography>
-          <Button color="inherit">USERS</Button>
+
+          <Button color="inherit">
+            <Link to="/users">USERS</Link>
+          </Button>
           <Button color="inherit">SIGN UP</Button>
           <Button color="inherit">SIGN IN</Button>
         </Toolbar>
