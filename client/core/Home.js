@@ -43,8 +43,8 @@ class Home extends Component {
           Text
           <CardMedia
             className={classes.media}
-            src="/assets/images/seashell.jpg"
-            image="/assets/images/seashell.jpg"
+            src={"./../assets/images/seashell.jpg"}
+            image={"./../assets/images/seashell.jpg"}
             title="Sea Shell"
           />
         </CardContent>

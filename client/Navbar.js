@@ -29,14 +29,35 @@ function Navbar(props) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            MERN SKELETON
+            <Link style={{ textDecoration: "none", color: "white" }} to="/">
+              MERN SKELETON
+            </Link>
           </Typography>
 
-          <Button color="inherit">
-            <Link to="/users">USERS</Link>
+          <Button>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/users"
+            >
+              users
+            </Link>
           </Button>
-          <Button color="inherit">SIGN UP</Button>
-          <Button color="inherit">SIGN IN</Button>
+          <Button>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/signup"
+            >
+              SIGN UP
+            </Link>
+          </Button>
+          <Button>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/signin"
+            >
+              SIGN IN
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
