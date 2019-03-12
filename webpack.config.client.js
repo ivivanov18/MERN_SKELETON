@@ -29,6 +29,9 @@ const config = {
       }
     ]
   },
+  devServer: {
+    historyAPIFallback: true
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()

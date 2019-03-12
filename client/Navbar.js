@@ -58,6 +58,14 @@ function Navbar(props) {
               SIGN IN
             </Link>
           </Button>
+          <Button>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/profile"
+            >
+              PROFILE
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
