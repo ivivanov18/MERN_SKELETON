@@ -18,10 +18,6 @@ const styles = theme => {
 };
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   constructor({ match }) {
     super();
     this.state = {
@@ -82,16 +78,17 @@ class Profile extends Component {
                 }
               />
             </ListItem>
-  { auth.isAuthenticated().user && auth.isAuthenticated().user._id ==
-    this.state.user._id &&
-        (<ListItemSecondaryAction>
-           <Link to={"/user/edit/" + this.state.user._id}>
-             <IconButton color="primary">
-               <Edit/>
-             </IconButton>
-           </Link>
-           <DeleteUser userId={this.state.user._id}/>
-        </ListItemSecondaryAction>)}
+            {auth.isAuthenticated().user &&
+              auth.isAuthenticated().user._id == this.state.user._id && (
+                <ListItemSecondaryAction>
+                  <Link to={"/user/edit/" + this.state.user._id}>
+                    <IconButton color="primary">
+                      <Edit />
+                    </IconButton>
+                  </Link>
+                  <DeleteUser userId={this.state.user._id} />
+                </ListItemSecondaryAction>
+              )}
           </List>
         </Paper>
       </div>
