@@ -1,18 +1,33 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import { Redirect, Link } from "react-router-dom";
+import {
+  Paper,
+  Typography,
+  List,
+  ListItem,
+  Avatar,
+  ListItemAvatar,
+  ListItemText,
+  Divider,
+  ListItemSecondaryAction,
+  IconButton
+} from "@material-ui/core";
+import Edit from "@material-ui/icons/Edit";
+import Person from "@material-ui/icons/AccountCircle";
 import { withStyles } from "@material-ui/core/styles";
 
+import DeleteUser from "./DeleteUser";
+import { isAuthenticated } from "../auth/auth-helper";
+import { read } from "./api-user";
+
 const styles = theme => {
-  console.log("theme: ", theme);
   return {
     card: {
       maxWidth: 600,
       margin: "auto",
       textAlign: "center",
-      marginTop: theme.spacing.unit * 5,
-      paddingBottom: theme.spacing.unit * 2
+      marginTop: `${theme.spacing.unit * 5}px`,
+      paddingBottom: `${theme.spacing.unit * 2}px`
     }
   };
 };
@@ -28,7 +43,7 @@ class Profile extends Component {
   }
 
   init = userId => {
-    const jwt = auth.isAuthenticated();
+    const jwt = isAuthenticated();
     read(
       {
         userId: userId
@@ -54,7 +69,7 @@ class Profile extends Component {
     if (redirectToSignin) return <Redirect to="/signin" />;
     return (
       <div>
-        <Paper className={classes.root} elevation={1}>
+        <Paper className={classes.card} elevation={1}>
           <Typography variant="h5" component="h3">
             Profile
           </Typography>
@@ -78,8 +93,8 @@ class Profile extends Component {
                 }
               />
             </ListItem>
-            {auth.isAuthenticated().user &&
-              auth.isAuthenticated().user._id == this.state.user._id && (
+            {isAuthenticated().user &&
+              isAuthenticated().user._id == this.state.user._id && (
                 <ListItemSecondaryAction>
                   <Link to={"/user/edit/" + this.state.user._id}>
                     <IconButton color="primary">
@@ -96,4 +111,4 @@ class Profile extends Component {
   }
 }
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles, { withTheme: true })(Profile);

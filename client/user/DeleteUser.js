@@ -1,5 +1,16 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import PropTypes from "prop-types";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button
+} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/DeleteForever";
+import { isAuthenticated } from "../auth/auth-helper";
 import { remove } from "./api-user";
 
 class DeleteUser extends Component {

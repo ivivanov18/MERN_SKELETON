@@ -9,6 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
+import { isAuthenticated } from "./auth/auth-helper";
+import { signout } from "./user/auth-user";
+
 const styles = {
   root: {
     flexGrow: 1
@@ -33,7 +36,6 @@ function Navbar(props) {
               MERN SKELETON
             </Link>
           </Typography>
-
           <Button>
             <Link
               style={{ textDecoration: "none", color: "white" }}
@@ -42,30 +44,47 @@ function Navbar(props) {
               users
             </Link>
           </Button>
-          <Button>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to="/signup"
-            >
-              SIGN UP
-            </Link>
-          </Button>
-          <Button>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to="/signin"
-            >
-              SIGN IN
-            </Link>
-          </Button>
-          <Button>
-            <Link
-              style={{ textDecoration: "none", color: "white" }}
-              to="/profile"
-            >
-              PROFILE
-            </Link>
-          </Button>
+
+          {!isAuthenticated() && (
+            <span>
+              {" "}
+              <Button>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to="/signup"
+                >
+                  SIGN UP
+                </Link>
+              </Button>
+              <Button>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to="/signin"
+                >
+                  SIGN IN
+                </Link>
+              </Button>
+            </span>
+          )}
+          {isAuthenticated() && (
+            <span>
+              <Button>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/user/${isAuthenticated().user._id}`}
+                >
+                  PROFILE
+                </Link>
+              </Button>
+              <Button
+                onClick={() => {
+                  signout(() => this.props.history.push("/"));
+                }}
+              >
+                SIGN OUT
+              </Button>
+            </span>
+          )}
         </Toolbar>
       </AppBar>
     </div>
