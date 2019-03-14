@@ -4,7 +4,6 @@ import React from "react";
 import MainRouter from "./MainRouter";
 import { BrowserRouter } from "react-router-dom";
 import { hot } from "react-hot-loader";
-import Navbar from "./Navbar";
 
 const theme = createMuiTheme({
   palette: {
@@ -32,7 +31,6 @@ const theme = createMuiTheme({
 const App = () => (
   <BrowserRouter>
     <MuiThemeProvider theme={theme}>
-      <Navbar />
       <MainRouter />
     </MuiThemeProvider>
   </BrowserRouter>

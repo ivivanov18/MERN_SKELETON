@@ -10,6 +10,9 @@ import {
 } from "@material-ui/core";
 import DialogSignin from "./DialogSignin";
 
+import { isAuthenticated } from "../auth/auth-helper";
+import { read } from "./api-user";
+
 const styles = theme => {
   return {
     card: {
@@ -27,13 +30,14 @@ class EditProfile extends Component {
     super();
     this.state = {
       user: "",
-      redirectToSignin: false
+      redirectToSignin: false,
+      open: false
     };
     this.match = match;
   }
 
   init = userId => {
-    const jwt = auth.isAuthenticated();
+    const jwt = isAuthenticated();
     read(
       {
         userId: userId
@@ -54,7 +58,7 @@ class EditProfile extends Component {
   };
 
   clickSubmit = () => {
-    const jwt = auth.isAuthenticated();
+    const jwt = isAuthenticated();
     const user = {
       name: this.state.name || undefined,
       email: this.state.email || undefined,
@@ -78,55 +82,58 @@ class EditProfile extends Component {
   };
 
   render() {
-    <form noValidate autoComplete="off">
-      <Card className={classes.card}>
-        <CardContent className={classes.container}>
-          <Typography type="headline" component="h2">
-            Sign up
-          </Typography>
-          <TextField
-            name="name"
-            label="Name"
-            className={classes.textField}
-            value={this.state.name}
-            onChange={this.handleChange}
-            margin="normal"
-          />
-          <TextField
-            name="email"
-            label="Email"
-            className={classes.textField}
-            value={this.state.email}
-            onChange={this.handleChange}
-            margin="normal"
-          />
-          <TextField
-            name="password"
-            label="Password"
-            className={classes.textField}
-            value={this.state.password}
-            onChange={this.handleChange}
-            type="password"
-            margin="normal"
-          />
-          <CardActions style={{ justifyContent: "center" }}>
-            <Button
-              color="primary"
-              raised="raised"
-              onClick={this.clickSubmit}
-              className={classes.submit}
-            >
-              Submit
-            </Button>
-          </CardActions>
-        </CardContent>
-      </Card>
-      <DialogSignin
-        open={this.state.open}
-        onClickSigninButton={this.clickSignin}
-      />
-    </form>;
+    const { classes } = this.props;
+    return (
+      <form noValidate autoComplete="off">
+        <Card className={classes.card}>
+          <CardContent className={classes.container}>
+            <Typography type="headline" component="h2">
+              Sign up
+            </Typography>
+            <TextField
+              name="name"
+              label="Name"
+              className={classes.textField}
+              value={this.state.name}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <TextField
+              name="email"
+              label="Email"
+              className={classes.textField}
+              value={this.state.email}
+              onChange={this.handleChange}
+              margin="normal"
+            />
+            <TextField
+              name="password"
+              label="Password"
+              className={classes.textField}
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+              margin="normal"
+            />
+            <CardActions style={{ justifyContent: "center" }}>
+              <Button
+                color="primary"
+                raised="raised"
+                onClick={this.clickSubmit}
+                className={classes.submit}
+              >
+                Submit
+              </Button>
+            </CardActions>
+          </CardContent>
+        </Card>
+        {/* <DialogSignin
+          open={this.state.open}
+          onClickSigninButton={this.clickSignin}
+        /> */}
+      </form>
+    );
   }
 }
 
-export default EditProfile;
+export default withStyles(styles)(EditProfile);

@@ -1,3 +1,5 @@
+// import { signout } from "./api-auth.js";
+
 const authenticate = (jwt, cb) => {
   if (typeof window !== "undefined")
     sessionStorage.setItem("jwt", JSON.stringify(jwt));
@@ -13,11 +15,13 @@ const isAuthenticated = () => {
 };
 
 const signout = cb => {
+  console.log("In signout removing jwt");
   if (typeof window !== "undefined") sessionStorage.removeItem("jwt");
   cb();
-  signout().then(data => {
-    document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/;";
-  });
+
+  // signout().then(data => {
+  //   document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC path=/;";
+  // });
 };
 
 export { authenticate, isAuthenticated, signout };
