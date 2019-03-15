@@ -74,7 +74,6 @@ const Navbar = withRouter(({ history }) => (
             <Button
               onClick={() => {
                 signout(() => {
-                  console.log("pushing");
                   this.props.history.push("/");
                 });
               }}
