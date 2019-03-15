@@ -15,7 +15,6 @@ const isAuthenticated = () => {
 };
 
 const signout = cb => {
-  console.log("In signout removing jwt");
   if (typeof window !== "undefined") sessionStorage.removeItem("jwt");
   cb();
 

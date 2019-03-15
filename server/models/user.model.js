@@ -49,9 +49,6 @@ UserSchema.methods = {
 
 UserSchema.virtual("password")
   .set(function(password) {
-    console.log("Password:", password);
-    console.log("THIS: ", this);
-
     this._password = password;
     this.salt = this.makeSalt();
     this.hashed_password = this.encryptPassword(password);
